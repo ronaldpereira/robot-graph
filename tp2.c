@@ -4,18 +4,26 @@
 
 int main(int argc, char *argv[])
 {
-	int i, j, dimx, dimy;
 	FILE *entrada;
+	int i, j, dimx, dimy;
+	TGrafo *Grafo;
 
-	fscanf(entrada, "%d %d", &dimx, &dimy);
+	entrada = fopen(argv[1], "r");
 
-	for(i = 0; i < dimx; i++)
+	while(fscanf(entrada, "%d %d", &dimy, &dimx) != EOF)
 	{
-		for(j = 0; j < dimy; j++)
-		{
-			/* code */
-		}
+		Grafo = alocaGrafo(dimx, dimy);
+
+		for(i = 0; i < dimx; i++)
+			for(j = 0; j < dimy; j++)
+				fscanf(entrada, "%d", &(Grafo->Mapa[i][j]));
+
+		imprimeMatriz(Grafo->Mapa, dimx, dimy);
+
+		Grafo = desalocaGrafo(Grafo, dimx, dimy);
 	}
+
+	fclose(entrada);
 
 	return 0;
 }

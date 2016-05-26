@@ -1,0 +1,13 @@
+make all
+gdb tp2.exe
+start testes/entrada.txt
+
+make all
+gdb tp2.exe
+run testes/entrada.txt
+
+make all
+./tp2.exe testes/entrada.txt
+
+make all
+valgrind ./tp2.exe testes/entrada.txt
