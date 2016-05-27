@@ -3,18 +3,19 @@
 
 typedef int TPointer;
 
+typedef struct MatrizGrafo
+{
+	int peso; // Peso da aresta
+	int id; // Numeração das casas da matriz da entrada
+} MatrizGrafo;
+
 typedef struct TGrafo
 {
-	int **Matriz;
+	MatrizGrafo **Matriz;
 	int **Mapa;
 	int NVertices;
 	int NArestas;
 } TGrafo;
-
-typedef enum
-{
-	BRANCO, CINZA, PRETO
-} TCor;
 
 void imprimeMatriz(int **m, int x, int y);
 

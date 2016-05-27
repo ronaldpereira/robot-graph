@@ -1,13 +1,13 @@
 make all
 gdb tp2.exe
-start testes/entrada.txt
+start testes/entrada.txt 0 0 3 1 0 0
 
 make all
 gdb tp2.exe
-run testes/entrada.txt
+run testes/entrada.txt 0 0 3 1 0 0
 
 make all
-./tp2.exe testes/entrada.txt
+./tp2.exe testes/entrada.txt 0 0 3 1 0 0
 
 make all
-valgrind ./tp2.exe testes/entrada.txt
+valgrind ./tp2.exe testes/entrada.txt 0 0 3 1 0 0

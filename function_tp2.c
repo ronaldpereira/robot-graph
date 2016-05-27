@@ -28,9 +28,9 @@ TGrafo *alocaGrafo(int dimx, int dimy)
 	for(i = 0; i < dimx; i++)
 		Grafo->Mapa[i] = (int*) malloc(dimy*sizeof(int*));
 
-	Grafo->Matriz = (int**) malloc(dimx*sizeof(int*));
+	Grafo->Matriz = (MatrizGrafo**) malloc(dimx*sizeof(MatrizGrafo*));
 	for(i = 0; i < dimx; i++)
-		Grafo->Matriz[i] = (int*) malloc(dimy*sizeof(int*));
+		Grafo->Matriz[i] = (MatrizGrafo*) malloc(dimy*sizeof(MatrizGrafo*));
 
 	return Grafo;
 }
