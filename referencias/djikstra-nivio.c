@@ -47,9 +47,7 @@ void FGVazio(TipoGrafo *Grafo)
 	Grafo->Mat[i][j] = 0;
 }
 
-void InsereAresta(TipoValorVertice *V1, TipoValorVertice *V2, TipoPeso *Peso,
-	TipoGrafo *Grafo)
-
+void InsereAresta(TipoValorVertice *V1, TipoValorVertice *V2, TipoPeso *Peso, TipoGrafo *Grafo)
 	{
 		Grafo->Mat[*V1][*V2] = *Peso;
 	}
