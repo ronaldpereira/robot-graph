@@ -15,6 +15,8 @@ typedef struct TGrafo
 	MatrizEntrada **Mapa; // Matriz de pesos e id's da matriz da entrada (definida no struct MatrizEntrada acima)
 	int NVertices; // Numero de vertices totais do grafo
 	int NArestas; // Numero de arestas totais do grafo
+	int Origem; // ID do vertice origem na matriz mapa
+	int Termino; // ID do vertice termino na matriz mapa
 } TGrafo;
 
 // Testes:

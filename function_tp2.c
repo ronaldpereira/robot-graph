@@ -40,11 +40,11 @@ TGrafo *alocaGrafo(int dimx, int dimy)
 
 	Grafo->Mapa = (MatrizEntrada**) malloc(dimx*sizeof(MatrizEntrada*));
 	for(i = 0; i < dimx; i++)
-		Grafo->Mapa[i] = (MatrizEntrada*) malloc(dimy*sizeof(MatrizEntrada*));
+		Grafo->Mapa[i] = (MatrizEntrada*) malloc(dimy*sizeof(MatrizEntrada));
 
-	Grafo->Matriz = (int**) malloc((dimx*dimy)*sizeof(int*));
+	Grafo->Matriz = (int**) calloc((dimx*dimy),sizeof(int*));
 	for(i = 0; i < (dimx*dimy); i++)
-		Grafo->Matriz[i] = (int*) malloc((dimx*dimy)*sizeof(int*));
+		Grafo->Matriz[i] = (int*) calloc((dimx*dimy),sizeof(int));
 
 	return Grafo;
 }
@@ -70,17 +70,17 @@ void imprimeMatrizAdj(TGrafo *Grafo, int x, int y)
 {
 	int i, j;
 
-	// printf("Impressão do Grafo\n");
-	//
-	// for(i = 0; i < (x*y); i++)
-	// {
-	// 	for(j = 0; j < (x*y); j++)
-	// 	{
-	// 		printf("%d ", Grafo->Matriz[i][j]);
-	// 		if(j == (x*y)-1)
-	// 			printf("\n");
-	// 	}
-	// }
+	printf("Impressão do Grafo\n");
+
+	for(i = 0; i < (x*y); i++)
+	{
+		for(j = 0; j < (x*y); j++)
+		{
+			printf("%d\t", Grafo->Matriz[i][j]);
+			if(j == (x*y)-1)
+				printf("\n");
+		}
+	}
 
 	printf("Impressão de atalhos:\n");
 
@@ -153,7 +153,7 @@ TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy)
 				{
 					for(l = 0; l < dimy; l++)
 					{
-						if(Grafo->Mapa[k][l].peso == 0 && (i != k || j != l))
+						if(Grafo->Mapa[k][l].peso == 0 && i != k && j != l)
 						{
 							Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[k][l].id] = 0;
 							Grafo->Matriz[Grafo->Mapa[k][l].id][Grafo->Mapa[i][j].id] = 0;

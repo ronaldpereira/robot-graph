@@ -12,3 +12,4 @@ make all
 
 make all
 valgrind ./tp2.exe testes/entrada.txt 0 0 3 1 0 0
+make clean

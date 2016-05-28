@@ -5,7 +5,7 @@
 int main(int argc, char *argv[])
 {
 	FILE *entrada;
-	int i, j, ent, casa, dimx, dimy, origem, termino;
+	int i, j, ent, casa, dimx, dimy;
 	int sx, sy, fx, fy; // dx, dy;
 	TGrafo *Grafo;
 
@@ -38,16 +38,17 @@ int main(int argc, char *argv[])
 			}
 		}
 
-		origem = Grafo->Mapa[sx][sy].id;
-		termino = Grafo->Mapa[fx][fy].id;
+		Grafo->Origem = Grafo->Mapa[sx][sy].id;
+		Grafo->Termino = Grafo->Mapa[fx][fy].id;
+		Grafo->NVertices = (dimx*dimy);
 
-		printf("%d --> %d\n", origem, termino);
+		printf("%d --> %d\n", Grafo->Origem, Grafo->Termino); // Teste
 
-		imprimeMatriz(Grafo->Mapa, dimx, dimy);
+		imprimeMatriz(Grafo->Mapa, dimx, dimy); // Teste
 
 		Grafo = montaMatrizAdj(Grafo, dimx, dimy);
 
-		imprimeMatrizAdj(Grafo, dimx, dimy);
+		imprimeMatrizAdj(Grafo, dimx, dimy); // Teste
 
 		Grafo = desalocaGrafo(Grafo, dimx, dimy);
 	}
