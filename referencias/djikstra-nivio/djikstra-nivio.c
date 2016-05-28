@@ -52,8 +52,7 @@ void InsereAresta(TipoValorVertice *V1, TipoValorVertice *V2, TipoPeso *Peso, Ti
 		Grafo->Mat[*V1][*V2] = *Peso;
 	}
 
-short  ExisteAresta(TipoValorVertice Vertice1, TipoValorVertice Vertice2,
-	TipoGrafo *Grafo)
+short  ExisteAresta(TipoValorVertice Vertice1, TipoValorVertice Vertice2, TipoGrafo *Grafo)
 	{
 		return (Grafo->Mat[Vertice1][Vertice2] > 0);
 	}
@@ -160,7 +159,8 @@ TipoItem RetiraMinInd(TipoItem *A,  TipoPeso *P,  TipoValorVertice *Pos)
 		return Result;
 	}
 	Result = A[1];
-	A[1] = A[n]; Pos[A[n].Chave] = 1;
+	A[1] = A[n];
+	Pos[A[n].Chave] = 1;
 	n--;
 	RefazInd(1, n, A, P, Pos);
 	return Result;
@@ -196,12 +196,15 @@ void Dijkstra(TipoGrafo *Grafo, TipoValorVertice *Raiz)
 	TipoVetor A;
 	TipoValorVertice u, v;
 	TipoItem temp;
+
 	for (u = 0; u <= Grafo->NumVertices; u++)
 	{
 		/*Constroi o heap com todos os valores igual a INFINITO*/
-		Antecessor[u] = -1; P[u] = INFINITO;
+		Antecessor[u] = -1;
+		P[u] = INFINITO;
 		A[u+1].Chave = u;   /*Heap a ser construido*/
-		Itensheap[u] = TRUE;  Pos[u] = u + 1;
+		Itensheap[u] = TRUE;
+		Pos[u] = u + 1;
 	}
 	n = Grafo->NumVertices;
 	P[*(Raiz)] = 0;
@@ -219,10 +222,10 @@ void Dijkstra(TipoGrafo *Grafo, TipoValorVertice *Raiz)
 				ProxAdj(&u, Grafo, &v, &Peso, &Aux, &FimListaAdj);
 				if (P[v] > (P[u] + Peso))
 				{
-					P[v] = P[u] + Peso; Antecessor[v] = u;
+					P[v] = P[u] + Peso;
+					Antecessor[v] = u;
 					DiminuiChaveInd(Pos[v], P[v], A, P, Pos);
-					printf("Caminho: v[%d] v[%ld] d[%d]",
-					v, Antecessor[v], P[v]);
+					printf("Caminho: v[%d] v[%ld] d[%d]", v, Antecessor[v], P[v]);
 					scanf("%*[^\n]");
 					getchar();
 				}
@@ -241,7 +244,7 @@ int main(int argc, char *argv[])
 	/* -- cada chamada de InsereAresta                       --*/
 	printf("No. vertices:\n");   /*readln(NVertices);*/
 	NVertices = 5;
-	printf("No. arestas:\n");   /*eadln(NArestas);*/
+	printf("No. arestas:\n");   /*readln(NArestas);*/
 	NArestas = 7;
 	Grafo.NumVertices = NVertices;
 	Grafo.NumArestas = 0;

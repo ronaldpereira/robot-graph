@@ -1,0 +1,4 @@
+16 - PITANGA  <- 		13 - GUARAPUAVA 	 	 <-  	14 - IRATI 	 	 <-  	2 - ITAPETININGA 	 	 <-  	1 - SOROCABA 	 	 <-  	0 - SAO_PAULO 	
+
+custo: 658
+

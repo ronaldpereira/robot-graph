@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include "graph.h"
+#define FALSE 0
+#define TRUE 1
+#define INFINITO INT_MAX
 
 void imprimeMatriz(MatrizEntrada **m, int x, int y)
 {
