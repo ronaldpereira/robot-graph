@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include "graph.h"
+#define FALSE 0
+#define TRUE 1
+#define INFINITO INT_MAX
 
 int main(int argc, char *argv[])
 {
@@ -10,10 +14,10 @@ int main(int argc, char *argv[])
 	TGrafo *Grafo;
 
 	entrada = fopen(argv[1], "r");
-	sx = atoi(argv[2]);
-	sy = atoi(argv[3]);
-	fx = atoi(argv[4]);
-	fy = atoi(argv[5]);
+	sy = atoi(argv[2]);
+	sx = atoi(argv[3]);
+	fy = atoi(argv[4]);
+	fx = atoi(argv[5]);
 	// dx = atoi(argv[6]);
 	// dy = atoi(argv[7]);
 
@@ -42,13 +46,15 @@ int main(int argc, char *argv[])
 		Grafo->Termino = Grafo->Mapa[fx][fy].id;
 		Grafo->NVertices = (dimx*dimy);
 
-		printf("%d --> %d\n", Grafo->Origem, Grafo->Termino); // Teste
+		// printf("%d --> %d\n", Grafo->Origem, Grafo->Termino); // Teste
 
-		imprimeMatriz(Grafo->Mapa, dimx, dimy); // Teste
+		// imprimeMatriz(Grafo->Mapa, dimx, dimy); // Teste
 
 		Grafo = montaMatrizAdj(Grafo, dimx, dimy);
 
-		imprimeMatrizAdj(Grafo, dimx, dimy); // Teste
+		// imprimeMatrizAdj(Grafo, dimx, dimy); // Teste
+
+		Dijkstra(Grafo);
 
 		Grafo = desalocaGrafo(Grafo, dimx, dimy);
 	}

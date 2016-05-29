@@ -108,8 +108,8 @@ TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy)
 		{
 			if(i + 1 < dimx && (Grafo->Mapa[i+1][j].peso == -1 || Grafo->Mapa[i][j].peso == -1))
 			{
-				Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i+1][j].id] = -1;
-				Grafo->Matriz[Grafo->Mapa[i+1][j].id][Grafo->Mapa[i][j].id] = -1;
+				Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i+1][j].id] = INFINITO;
+				Grafo->Matriz[Grafo->Mapa[i+1][j].id][Grafo->Mapa[i][j].id] = INFINITO;
 			}
 
 			else
@@ -123,8 +123,8 @@ TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy)
 
 			if(j + 1 < dimy && (Grafo->Mapa[i][j+1].peso == -1 || Grafo->Mapa[i][j].peso == -1))
 			{
-				Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i][j+1].id] = -1;
-				Grafo->Matriz[Grafo->Mapa[i][j+1].id][Grafo->Mapa[i][j].id] = -1;
+				Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i][j+1].id] = INFINITO;
+				Grafo->Matriz[Grafo->Mapa[i][j+1].id][Grafo->Mapa[i][j].id] = INFINITO;
 			}
 
 			else
@@ -143,7 +143,7 @@ TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy)
 		for(j = 0; j < (dimx*dimy); j++)
 		{
 			if(Grafo->Matriz[i][j] == 0)
-				Grafo->Matriz[i][j] = -1;
+				Grafo->Matriz[i][j] = INFINITO;
 		}
 	}
 
@@ -169,4 +169,86 @@ TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy)
 	}
 
 	return Grafo;
+}
+
+int *alocaVetor(int tam)
+{
+	int *vetor;
+
+	vetor = (int*) calloc(tam,sizeof(int));
+
+	return vetor;
+}
+
+int *desalocaVetor(int *vetor)
+{
+	free(vetor);
+
+	return NULL;
+}
+
+void Dijkstra(TGrafo *Grafo)
+{
+	int *distancia, *adj, *caminho;
+	int atual, distancia_parcial, menor_distancia, nova_distancia;
+	int i, aux;
+
+	distancia = alocaVetor(Grafo->NVertices);
+	adj = alocaVetor(Grafo->NVertices);
+	caminho = alocaVetor(Grafo->NVertices);
+
+	for(i = 0; i < Grafo->NVertices; i++)
+		distancia[i] = INFINITO;
+
+	adj[Grafo->Origem] = 1;
+	distancia[Grafo->Origem] = 0;
+
+	atual = Grafo->Origem;
+	aux = Grafo->Origem;
+
+	while(atual != Grafo->Termino)
+	{
+		menor_distancia = INFINITO;
+		distancia_parcial = distancia[atual];
+
+		for(i = 0; i < Grafo->NVertices; i++)
+		{
+			if(adj[i] == 0)
+			{
+				if(Grafo->Matriz[atual][i] == INFINITO)
+					nova_distancia = INFINITO;
+				else
+				nova_distancia = distancia_parcial + Grafo->Matriz[atual][i];
+
+				if(nova_distancia < distancia[i])
+				{
+					distancia[i] = nova_distancia;
+					caminho[i] = atual;
+				}
+
+				if(distancia[i] < menor_distancia)
+				{
+					menor_distancia = distancia[i];
+					aux = i;
+				}
+			}
+		}
+
+		if(atual == aux)
+		{
+			printf("-1\n");
+			desalocaVetor(distancia);
+			desalocaVetor(adj);
+			desalocaVetor(caminho);
+			return;
+		}
+
+		atual = aux;
+		adj[atual] = 1;
+	}
+	printf("%d\n", distancia[aux]);
+
+	desalocaVetor(distancia);
+	desalocaVetor(adj);
+	desalocaVetor(caminho);
 }

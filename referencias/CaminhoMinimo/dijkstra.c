@@ -1,18 +1,18 @@
 /*******************************************************************************
     Universidade do Estado de Santa Catarina - UDESC
-     Centro de Ciências Tecnológicas - CCT
-      Bacharelado de Ciência da Computação - BCC
+     Centro de Ciï¿½ncias Tecnolï¿½gicas - CCT
+      Bacharelado de Ciï¿½ncia da Computaï¿½ï¿½o - BCC
        Disciplina: Teoria dos Grafos - TGR
         Trabalho: Menor caminho usando o algoritmo de Dijkstra
-        Acadêmicos: 
+        Acadï¿½micos:
                  Eduardo Flohr
                  Danilo Matias
                  Reginaldo de Matias
-                 Vinícius Torres
+                 Vinï¿½cius Torres
 ********************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>     
+#include <string.h>
 void dijkstra(int ***matriz1, int t, int s, int *numcidades, int infinito, char ***cidades1)
 {
     int *dist=NULL, *perm=NULL, *path=NULL, **matriz=NULL;
@@ -20,12 +20,12 @@ void dijkstra(int ***matriz1, int t, int s, int *numcidades, int infinito, char 
     int smalldist, newdist;
     char **cidades=(*cidades1);
     FILE *arq=NULL;
-    
+
     matriz = *matriz1;
 
 
        remove("caminho_minimo.txt");
-      arq=fopen("caminho_minimo.txt","w");//cria o arquivo para a escrita do caminho mínimo
+      arq=fopen("caminho_minimo.txt","w");//cria o arquivo para a escrita do caminho mï¿½nimo
       if(arq==NULL)
       {
          printf(" Erro ! Erro de abertura no arquivo \"caminho_minimo.txt\"(ponteiro)\n");
@@ -35,10 +35,10 @@ void dijkstra(int ***matriz1, int t, int s, int *numcidades, int infinito, char 
 
 if((dist=(int*)malloc((*numcidades)*sizeof(int)))==NULL|(perm=(int*)malloc((*numcidades)*sizeof(int)))==NULL|(path=(int*)malloc((*numcidades)*sizeof(int)))==NULL)
 {
-   printf("\n Erro na alocacao de algum vetor auxiliar na funcao deijakstra2! \n"); 
-   exit(1);                                                                                                                                                                 
+   printf("\n Erro na alocacao de algum vetor auxiliar na funcao deijakstra2! \n");
+   exit(1);
 }
-    /* Inicializa todos os índices de 'perm' como 0 e de 'dist' como INFINITY */
+    /* Inicializa todos os ï¿½ndices de 'perm' como 0 e de 'dist' como INFINITY */
     for (i = 0; i < (*numcidades); i++)
     {
         perm[i] = 0;
@@ -61,21 +61,21 @@ if((dist=(int*)malloc((*numcidades)*sizeof(int)))==NULL|(perm=(int*)malloc((*num
 
         for (i = 0; i < (*numcidades); i++)
         {
-            //se o elemento NÃO está em perm
+            //se o elemento Nï¿½O estï¿½ em perm
             if (perm[i] == 0)
             {
-                //calcula distância a partir do vértice corrente ao vértice adjacente i
+                //calcula distï¿½ncia a partir do vï¿½rtice corrente ao vï¿½rtice adjacente i
                 newdist = dc + matriz[current][i];//g->arcs[current][i].weight;
 
-                //se a distância partindo do vértice corrente for menor, atualiza o vetor
-                //de distâncias e de precedência
+                //se a distï¿½ncia partindo do vï¿½rtice corrente for menor, atualiza o vetor
+                //de distï¿½ncias e de precedï¿½ncia
                 if (newdist < dist[i])
                 {
                     dist[i] = newdist;
                     path[i] = current;
                 }
 
-                //determina o vértice (entre todos os não pertencentes a perm) com menor distância
+                //determina o vï¿½rtice (entre todos os nï¿½o pertencentes a perm) com menor distï¿½ncia
                 if (dist[i] < smalldist)
                 {
                     smalldist = dist[i];
@@ -87,7 +87,7 @@ if((dist=(int*)malloc((*numcidades)*sizeof(int)))==NULL|(perm=(int*)malloc((*num
         } /* fim for */
 
         /* embora estamos assumindo grafos ponderados e conexos, este if garante que
-         em caso de não existência de um caminho o programa não entre em loop infinito */
+         em caso de nï¿½o existï¿½ncia de um caminho o programa nï¿½o entre em loop infinito */
         if (current == k)
         {
             printf("\n\nCAMINHO NAO EXISTE\n\n");
@@ -106,7 +106,7 @@ if((dist=(int*)malloc((*numcidades)*sizeof(int)))==NULL|(perm=(int*)malloc((*num
 
     printf(" %d - %s <- \t\t", t, cidades[t]);
     fprintf(arq, "%i - %s  <- \t\t", t, cidades[t]);
-    
+
     while (caminho != s)
     {
         printf("%d - %s \t", path[caminho], cidades[path[caminho]]);
@@ -119,14 +119,14 @@ if((dist=(int*)malloc((*numcidades)*sizeof(int)))==NULL|(perm=(int*)malloc((*num
             fprintf(arq, " \t <-  \t");
         }
     }
-    fprintf(arq, "\n\ncusto: %d\n\n", dist[k]); 
+    fprintf(arq, "\n\ncusto: %d\n\n", dist[k]);
     printf("\n\ncusto: %d\n\n", dist[k]);
     /****************************************/
     free(dist);free(perm);free(path);
     fclose(arq);
 
 
-}/* fim da função dijkstra */
+}/* fim da funï¿½ï¿½o dijkstra */
 
 
 /*----------------------------------------------------------------------------*/
@@ -149,11 +149,11 @@ void leArquivo(int ***matriz1,char ***cidades1,int *numcidades)
        exit(1);
       }
       fscanf(arq,"%d %d",&aux,numcidades);
-      //aloca cidades 
+      //aloca cidades
       cidades=(char**)malloc((*numcidades)*sizeof(char*));
       if(cidades==NULL)
       {
-            printf("falha alocação");
+            printf("falha alocaï¿½ï¿½o");
             system("pause");
             exit(1);
          }
@@ -162,7 +162,7 @@ void leArquivo(int ***matriz1,char ***cidades1,int *numcidades)
          cidades[i]=(char*)malloc(200*sizeof(char));
          if(cidades[i]==NULL)
          {
-            printf("falha alocação");
+            printf("falha alocaï¿½ï¿½o");
             system("pause");
             exit(1);
          }
@@ -171,7 +171,7 @@ void leArquivo(int ***matriz1,char ***cidades1,int *numcidades)
       matriz=(int**)malloc((*numcidades)*sizeof(int*));
       if(matriz==NULL)
       {
-            printf("falha alocação");
+            printf("falha alocaï¿½ï¿½o");
             system("pause");
             exit(1);
          }
@@ -180,7 +180,7 @@ void leArquivo(int ***matriz1,char ***cidades1,int *numcidades)
          matriz[i]=(int*)malloc((*numcidades)*sizeof(int));
          if(matriz[i]==NULL)
          {
-            printf("falha alocação");
+            printf("falha alocaï¿½ï¿½o");
             system("pause");
             exit(1);
          }
@@ -200,8 +200,8 @@ void leArquivo(int ***matriz1,char ***cidades1,int *numcidades)
       //
       (*matriz1)=matriz;
       (*cidades1)=cidades;
-      
-      for(i=0;i<(*numcidades);i++)/* laço para a escrita da matriz no arquivo*/
+
+      for(i=0;i<(*numcidades);i++)/* laï¿½o para a escrita da matriz no arquivo*/
       {
       fprintf(arq2, " \n");
            for(j=0;j<(*numcidades);j++)
@@ -209,7 +209,7 @@ void leArquivo(int ***matriz1,char ***cidades1,int *numcidades)
                                        fprintf(arq2, "%d \t", matriz[i][j]);
            }
       }
-      
+
       fclose(arq2);
       fclose(arq);
 }
@@ -219,14 +219,14 @@ int main()
       int **matriz=NULL,num,i,j, infinito, x, y, peso,origem,destino;
       char **cidades=NULL,op;
       FILE *arq=NULL;
-     do{ 
+     do{
        printf("\n *********************************\n");
          printf("\tAlgoritmo Dijkstra\t\n ");
      printf("\n *********************************\n\n\n\n");
-       infinito=999;/*Observe que o valor de infinito, poderia ser dado pelo usuário ou definido no arquivo, decidi colocar aqui  */
+       infinito=999;/*Observe que o valor de infinito, poderia ser dado pelo usuï¿½rio ou definido no arquivo, decidi colocar aqui  */
        printf("\nApenas para lembrar que um valor maior que 999, indica que a distancia\n eh infinita, ou seja, que esses dois grafos nao possuem conexoes! \n");
        leArquivo(&matriz,&cidades,&num);
-      
+
       //printf("2");
       printf(" numero de cidades: %d \n\n",num);
       for(i=0;i<num;i++)
@@ -234,12 +234,12 @@ int main()
          //printf("3 \n");
          printf(" %d - %s \n",i,cidades[i]);
          }
-      for(i=0;i<num;i++)
-       {
-         for(j=0;j<num;j++)
-            printf("%d\t",matriz[i][j]);
-         printf("\n");    
-       }
+    //   for(i=0;i<num;i++)
+    //    {
+    //      for(j=0;j<num;j++)
+    //         printf("%d\t",matriz[i][j]);
+    //      printf("\n");
+    //    }
        do{
           printf("\nEntre com o valor do no de origem: ");
           scanf("%d",&origem);
@@ -249,11 +249,11 @@ int main()
           scanf("%d",&destino);
           }while(destino<0||destino>num);
        dijkstra(&matriz, destino, origem, &num, infinito, &cidades);
-                  /*laço para liberar a matriz*/
+                  /*laï¿½o para liberar a matriz*/
                   for(j=(num-1);j>=0;j--)
                   {
                         free(matriz[j]);
-                        free(cidades[j]);                 
+                        free(cidades[j]);
                   }
                   free(matriz);
                   free(cidades);

@@ -32,4 +32,10 @@ TGrafo *desalocaGrafo(TGrafo *Grafo, int dimx, int dimy);
 
 TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy);
 
+int *alocaVetor(int tam);
+
+int *desalocaVetor(int *vetor);
+
+void Dijkstra(TGrafo *Grafo);
+
 #endif
