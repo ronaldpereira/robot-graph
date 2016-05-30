@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
 	FILE *entrada;
 	int i, j, ent, casa, dimx, dimy;
-	int sx, sy, fx, fy; // dx, dy;
+	int sx, sy, fx, fy, dx, dy;
 	TGrafo *Grafo;
 
 	entrada = fopen(argv[1], "r");
@@ -18,14 +18,15 @@ int main(int argc, char *argv[])
 	sx = atoi(argv[3]);
 	fy = atoi(argv[4]);
 	fx = atoi(argv[5]);
-	// dx = atoi(argv[6]);
-	// dy = atoi(argv[7]);
+	dx = atoi(argv[6]);
+	dy = atoi(argv[7]);
 
 	while(fscanf(entrada, "%d %d", &dimy, &dimx) != EOF)
 	{
-		Grafo = alocaGrafo(dimx, dimy);
+		Grafo = alocaGrafo(dimx, dimy); // Aloca todo o espaco necessário para a estrutura TGrafo, incluindo a matriz do mapa da arena e a matriz de adjacencia do grafo
 
-		casa = 0;
+		casa = 0; // Variavel que identifica qual casa da matriz esta a leitura, sendo assim, e possivel atribuir id's para o futuro grafo que sera construido
+
 		for(i = 0; i < dimx; i++)
 		{
 			for(j = 0; j < dimy; j++, casa++)
@@ -42,21 +43,15 @@ int main(int argc, char *argv[])
 			}
 		}
 
-		Grafo->Origem = Grafo->Mapa[sx][sy].id;
-		Grafo->Termino = Grafo->Mapa[fx][fy].id;
-		Grafo->NVertices = (dimx*dimy);
+		Grafo->Origem = Grafo->Mapa[sx][sy].id;  // Armazena o ponto de origem do grafo
+		Grafo->Termino = Grafo->Mapa[fx][fy].id; // Armazena o ponto de termino do grafo
+		Grafo->NVertices = (dimx*dimy); // Armazena o numero de vertices que o grafo tera
 
-		// printf("%d --> %d\n", Grafo->Origem, Grafo->Termino); // Teste
+		Grafo = montaMatrizAdj(Grafo, dimx, dimy, dx, dy); // Funcao que constroi a matriz de adjacencia (Grafo) a partir do mapa da arena
 
-		// imprimeMatriz(Grafo->Mapa, dimx, dimy); // Teste
+		Dijkstra(Grafo); // Funcao que utiliza do Algoritmo de Dijkstra para calcular o menor custo do deslocamento do ponto de origem ao ponto de termino do grafo
 
-		Grafo = montaMatrizAdj(Grafo, dimx, dimy);
-
-		// imprimeMatrizAdj(Grafo, dimx, dimy); // Teste
-
-		Dijkstra(Grafo);
-
-		Grafo = desalocaGrafo(Grafo, dimx, dimy);
+		Grafo = desalocaGrafo(Grafo, dimx, dimy); // Funcao que desaloca a estrutura TGrafo previamente alocada
 	}
 
 	fclose(entrada);

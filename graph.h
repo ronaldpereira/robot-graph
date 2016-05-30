@@ -1,8 +1,6 @@
 #ifndef GRAPH
 #define GRAPH
 
-typedef int TPointer;
-
 typedef struct MatrizEntrada
 {
 	int peso; // Peso da aresta
@@ -14,28 +12,22 @@ typedef struct TGrafo
 	int **Matriz; // Grafo do estilo de matriz de adjacencia
 	MatrizEntrada **Mapa; // Matriz de pesos e id's da matriz da entrada (definida no struct MatrizEntrada acima)
 	int NVertices; // Numero de vertices totais do grafo
-	int NArestas; // Numero de arestas totais do grafo
 	int Origem; // ID do vertice origem na matriz mapa
 	int Termino; // ID do vertice termino na matriz mapa
 } TGrafo;
 
-// Testes:
-void imprimeMatriz(MatrizEntrada **m, int x, int y);
+// Funcoes do TAD:
 
-void imprimeMatrizAdj(TGrafo *Grafo, int x, int y);
+TGrafo *alocaGrafo(int dimx, int dimy); // Aloca todo o espaco necessário para a estrutura TGrafo, incluindo a matriz do mapa da arena e a matriz de adjacencia do grafo
 
-// Funcoes do TP:
+TGrafo *desalocaGrafo(TGrafo *Grafo, int dimx, int dimy); // Funcao que desaloca a estrutura TGrafo previamente alocada
 
-TGrafo *alocaGrafo(int dimx, int dimy);
+TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy, int dx, int dy); // Funcao que constroi a matriz de adjacencia (Grafo) a partir do mapa da arena
 
-TGrafo *desalocaGrafo(TGrafo *Grafo, int dimx, int dimy);
+int *alocaVetor(int tam); // Funcao que aloca um vetor generico de tamanho tam
 
-TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy);
+int *desalocaVetor(int *vetor); // Funcao que desaloca o vetor generico previamente alocado
 
-int *alocaVetor(int tam);
-
-int *desalocaVetor(int *vetor);
-
-void Dijkstra(TGrafo *Grafo);
+void Dijkstra(TGrafo *Grafo); // Funcao que utiliza do Algoritmo de Dijkstra para calcular o menor custo do deslocamento do ponto de origem ao ponto de termino do grafo
 
 #endif

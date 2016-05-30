@@ -6,36 +6,7 @@
 #define TRUE 1
 #define INFINITO INT_MAX
 
-void imprimeMatriz(MatrizEntrada **m, int x, int y)
-{
-	int i, j;
-
-	printf("Impressão da matriz entrada e seus pesos:\n");
-
-	for(i = 0; i < x; i++)
-	{
-		for(j = 0; j < y; j++)
-		{
-			printf("%d ", m[i][j].peso);
-			if(j == y-1)
-				printf("\n");
-		}
-	}
-
-	printf("Impressão da matriz entrada e seus id's:\n");
-
-	for(i = 0; i < x; i++)
-	{
-		for(j = 0; j < y; j++)
-		{
-			printf("%d ", m[i][j].id);
-			if(j == y-1)
-				printf("\n");
-		}
-	}
-}
-
-TGrafo *alocaGrafo(int dimx, int dimy)
+TGrafo *alocaGrafo(int dimx, int dimy) // Aloca todo o espaco necessário para a estrutura TGrafo, incluindo a matriz do mapa da arena e a matriz de adjacencia do grafo
 {
 	TGrafo *Grafo;
 	int i;
@@ -53,7 +24,7 @@ TGrafo *alocaGrafo(int dimx, int dimy)
 	return Grafo;
 }
 
-TGrafo *desalocaGrafo(TGrafo *Grafo, int dimx, int dimy)
+TGrafo *desalocaGrafo(TGrafo *Grafo, int dimx, int dimy) // Funcao que desaloca a estrutura TGrafo previamente alocada
 {
 	int i;
 
@@ -70,69 +41,178 @@ TGrafo *desalocaGrafo(TGrafo *Grafo, int dimx, int dimy)
 	return NULL;
 }
 
-void imprimeMatrizAdj(TGrafo *Grafo, int x, int y)
-{
-	int i, j;
-
-	printf("Impressão do Grafo\n");
-
-	for(i = 0; i < (x*y); i++)
-	{
-		for(j = 0; j < (x*y); j++)
-		{
-			printf("%d\t", Grafo->Matriz[i][j]);
-			if(j == (x*y)-1)
-				printf("\n");
-		}
-	}
-
-	printf("Impressão de atalhos:\n");
-
-	for(i = 0; i < (x*y); i++)
-	{
-		for(j = 0; j < (x*y); j++)
-		{
-			if(Grafo->Matriz[i][j] == 0)
-				printf("%d --> %d\n", i, j);
-		}
-	}
-}
-
-TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy)
+TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy, int dx, int dy) // Funcao que constroi a matriz de adjacencia (Grafo) a partir do mapa da arena
 {
 	int i, j, k, l;
+	int pesox, pesoy;
 
-	for(i = 0; i < dimx; i++)
+	if(dx == 0 && dy == 0)
 	{
-		for(j = 0; j < dimy; j++)
+		for(i = 0; i < dimx; i++)
 		{
-			if(i + 1 < dimx && (Grafo->Mapa[i+1][j].peso == -1 || Grafo->Mapa[i][j].peso == -1))
+			for(j = 0; j < dimy; j++)
 			{
-				Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i+1][j].id] = INFINITO;
-				Grafo->Matriz[Grafo->Mapa[i+1][j].id][Grafo->Mapa[i][j].id] = INFINITO;
-			}
-
-			else
-			{
-				if(i + 1 < dimx)
+				if(i + 1 < dimx && (Grafo->Mapa[i+1][j].peso == -1 || Grafo->Mapa[i][j].peso == -1))
 				{
-					Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i+1][j].id] = (Grafo->Mapa[i][j].peso + Grafo->Mapa[i+1][j].peso);
-					Grafo->Matriz[Grafo->Mapa[i+1][j].id][Grafo->Mapa[i][j].id] = Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i+1][j].id];
+					Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i+1][j].id] = INFINITO;
+					Grafo->Matriz[Grafo->Mapa[i+1][j].id][Grafo->Mapa[i][j].id] = INFINITO;
+				}
+
+				else
+				{
+					if(i + 1 < dimx)
+					{
+						Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i+1][j].id] = (Grafo->Mapa[i][j].peso + Grafo->Mapa[i+1][j].peso);
+						Grafo->Matriz[Grafo->Mapa[i+1][j].id][Grafo->Mapa[i][j].id] = Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i+1][j].id];
+					}
+				}
+
+				if(j + 1 < dimy && (Grafo->Mapa[i][j+1].peso == -1 || Grafo->Mapa[i][j].peso == -1))
+				{
+					Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i][j+1].id] = INFINITO;
+					Grafo->Matriz[Grafo->Mapa[i][j+1].id][Grafo->Mapa[i][j].id] = INFINITO;
+				}
+
+				else
+				{
+					if(j + 1 < dimy)
+					{
+						Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i][j+1].id] = (Grafo->Mapa[i][j].peso + Grafo->Mapa[i][j+1].peso);
+						Grafo->Matriz[Grafo->Mapa[i][j+1].id][Grafo->Mapa[i][j].id] = Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i][j+1].id];
+					}
 				}
 			}
+		}
+	}
 
-			if(j + 1 < dimy && (Grafo->Mapa[i][j+1].peso == -1 || Grafo->Mapa[i][j].peso == -1))
+	else
+	{
+		for(i = 0; i < dimx; i++)
+		{
+			for(j = 0; j < dimy; j++)
 			{
-				Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i][j+1].id] = INFINITO;
-				Grafo->Matriz[Grafo->Mapa[i][j+1].id][Grafo->Mapa[i][j].id] = INFINITO;
-			}
+				pesox = 0;
+				pesoy = 0;
 
-			else
-			{
-				if(j + 1 < dimy)
+				for(k = 0; k <= dx; k++) // Dx primeiro
 				{
-					Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i][j+1].id] = (Grafo->Mapa[i][j].peso + Grafo->Mapa[i][j+1].peso);
-					Grafo->Matriz[Grafo->Mapa[i][j+1].id][Grafo->Mapa[i][j].id] = Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i][j+1].id];
+					if(j + k >= dimy)
+					{
+						pesox = INFINITO;
+						break;
+					}
+
+					if(Grafo->Mapa[i][j+k].peso == -1)
+					{
+						pesox = INFINITO;
+						break;
+					}
+
+					if(k == 0 || k == dx)
+						pesox += Grafo->Mapa[i][j+k].peso;
+
+					else
+						pesox += 2*Grafo->Mapa[i][j+k].peso;
+				}
+
+				if(k >= dx)
+					k--;
+
+				for(l = 0; l <= dy; l++)
+				{
+					if(pesox == INFINITO)
+						break;
+
+					if(j + k >= dimy)
+					{
+						pesoy = INFINITO;
+						break;
+					}
+
+					if(i + l >= dimx)
+					{
+						pesoy = INFINITO;
+						break;
+					}
+
+					if(Grafo->Mapa[i+l][j+k].peso == -1)
+					{
+						pesox = INFINITO;
+						break;
+					}
+
+					if(l == 0 || l == dy)
+						pesox += Grafo->Mapa[i+l][j+k].peso;
+
+					else
+						pesox += 2*Grafo->Mapa[i+l][j+k].peso;
+				}
+
+				for(k = 0; k <= dy; k++) // Dy primeiro
+				{
+					if(i + k >= dimx)
+					{
+						pesoy = INFINITO;
+						break;
+					}
+
+					if(Grafo->Mapa[i+k][j].peso == -1)
+					{
+						pesoy = INFINITO;
+						break;
+					}
+
+					if(k == 0 || k == dy)
+						pesoy += Grafo->Mapa[i+k][j].peso;
+
+					else
+						pesoy += 2*Grafo->Mapa[i+k][j].peso;
+
+				}
+
+				if(k >= dx)
+					k--;
+
+				for(l = 0; l <= dx; l++)
+				{
+					if(pesoy == INFINITO)
+						break;
+
+					if(i + k >= dimx)
+					{
+						pesoy = INFINITO;
+						break;
+					}
+
+					if(j + l >= dimy)
+					{
+						pesoy = INFINITO;
+						break;
+					}
+
+					if(Grafo->Mapa[i+k][j+l].peso == -1)
+					{
+						pesoy = INFINITO;
+						break;
+					}
+
+					if(l == 0 || l == dx)
+						pesoy += Grafo->Mapa[i+k][j+l].peso;
+
+					else
+						pesoy += 2*Grafo->Mapa[i+k][j+l].peso;
+				}
+
+				if(pesox < pesoy && i+dy < dimx && j+dx < dimy)
+				{
+					Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i+dy][j+dx].id] = pesox; // Colocar peso x ligando as arestas [i][j] a [i+dx][j+dy]
+					Grafo->Matriz[Grafo->Mapa[i+dy][j+dx].id][Grafo->Mapa[i][j].id] = pesox;
+				}
+
+				else if(pesoy < pesox && i+dy < dimx && j+dx < dimy)
+				{
+					Grafo->Matriz[Grafo->Mapa[i][j].id][Grafo->Mapa[i+dy][j+dx].id] = pesoy; // Colocar peso y ligando as arestas [i][j] a [i+dx][j+dy]
+					Grafo->Matriz[Grafo->Mapa[i+dy][j+dx].id][Grafo->Mapa[i][j].id] = pesoy;
 				}
 			}
 		}
@@ -171,7 +251,7 @@ TGrafo *montaMatrizAdj(TGrafo *Grafo, int dimx, int dimy)
 	return Grafo;
 }
 
-int *alocaVetor(int tam)
+int *alocaVetor(int tam) // Funcao que aloca um vetor generico de tamanho tam
 {
 	int *vetor;
 
@@ -180,14 +260,14 @@ int *alocaVetor(int tam)
 	return vetor;
 }
 
-int *desalocaVetor(int *vetor)
+int *desalocaVetor(int *vetor) // Funcao que desaloca o vetor generico previamente alocado
 {
 	free(vetor);
 
 	return NULL;
 }
 
-void Dijkstra(TGrafo *Grafo)
+void Dijkstra(TGrafo *Grafo) // Funcao que utiliza do Algoritmo de Dijkstra para calcular o menor custo do deslocamento do ponto de origem ao ponto de termino do grafo
 {
 	int *distancia, *adj, *caminho;
 	int atual, distancia_parcial, menor_distancia, nova_distancia;
