@@ -269,13 +269,12 @@ int *desalocaVetor(int *vetor) // Funcao que desaloca o vetor generico previamen
 
 void Dijkstra(TGrafo *Grafo) // Funcao que utiliza do Algoritmo de Dijkstra para calcular o menor custo do deslocamento do ponto de origem ao ponto de termino do grafo
 {
-	int *distancia, *adj, *caminho;
+	int *distancia, *adj;
 	int atual, distancia_parcial, menor_distancia, nova_distancia;
 	int i, aux;
 
 	distancia = alocaVetor(Grafo->NVertices);
 	adj = alocaVetor(Grafo->NVertices);
-	caminho = alocaVetor(Grafo->NVertices);
 
 	for(i = 0; i < Grafo->NVertices; i++)
 		distancia[i] = INFINITO;
@@ -301,10 +300,7 @@ void Dijkstra(TGrafo *Grafo) // Funcao que utiliza do Algoritmo de Dijkstra para
 				nova_distancia = distancia_parcial + Grafo->Matriz[atual][i];
 
 				if(nova_distancia < distancia[i])
-				{
 					distancia[i] = nova_distancia;
-					caminho[i] = atual;
-				}
 
 				if(distancia[i] < menor_distancia)
 				{
@@ -319,7 +315,6 @@ void Dijkstra(TGrafo *Grafo) // Funcao que utiliza do Algoritmo de Dijkstra para
 			printf("-1\n");
 			desalocaVetor(distancia);
 			desalocaVetor(adj);
-			desalocaVetor(caminho);
 			return;
 		}
 
@@ -330,5 +325,4 @@ void Dijkstra(TGrafo *Grafo) // Funcao que utiliza do Algoritmo de Dijkstra para
 
 	desalocaVetor(distancia);
 	desalocaVetor(adj);
-	desalocaVetor(caminho);
 }
