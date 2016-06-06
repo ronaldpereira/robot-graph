@@ -3,112 +3,112 @@ casos de testes gerados por mim
 100 100
 real	0m0.613s
 user	0m0.532s
-sys	0m0.080s
+sys		0m0.080s
 
 real	0m0.335s
 user	0m0.272s
-sys	0m0.060s
+sys		0m0.060s
 
 real	0m0.339s
 user	0m0.288s
-sys	0m0.048s
+sys		0m0.048s
 
 real	0m0.336s
 user	0m0.260s
-sys	0m0.076s
+sys		0m0.076s
 
 200 200
 real	0m0.551s
 user	0m0.468s
-sys	0m0.080s
+sys		0m0.080s
 
 real	0m0.337s
 user	0m0.256s
-sys	0m0.076s
+sys		0m0.076s
 
 real	0m0.335s
 user	0m0.248s
-sys	0m0.084s
+sys		0m0.084s
 
 real	0m0.334s
 user	0m0.268s
-sys	0m0.064s
+sys		0m0.064s
 
 300 300
 real	0m9.026s
 user	0m7.560s
-sys	0m1.436s
+sys		0m1.436s
 
 real	0m5.754s
 user	0m4.240s
-sys	0m1.512s
+sys		0m1.512s
 
 real	0m5.718s
 user	0m4.132s
-sys	0m1.584s
+sys		0m1.584s
 
 real	0m5.706s
 user	0m4.188s
-sys	0m1.516s
+sys		0m1.516s
 
 -----------------
 casos de teste no trabalho pratico
 
 real	0m0.001s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.001s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.001s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.000s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.000s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.001s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.000s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.000s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 ------------------
 Toy's
 
 real	0m0.001s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.000s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.000s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.001s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.001s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
 
 real	0m0.001s
 user	0m0.000s
-sys	0m0.000s
+sys		0m0.000s
